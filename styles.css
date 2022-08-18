@@ -11,6 +11,8 @@ body {
     justify-content: space-evenly;
     min-height: 100vh;
     background: #242b33;
+    background: #161f24;
+    background: #14191c;
     vertical-align: top;
 }
 
@@ -19,6 +21,7 @@ body {
     height: 75px;
     position: absolute;
     background: #37404a;
+    background: #161f24;
     top: 100px;
     border-radius: 20px;
     border: 2px solid white;
@@ -46,63 +49,110 @@ body {
 .start-search {
     position: relative;
     top: 40px;
-    border-radius: 20px;
+    border-radius: 100px;
+    border-color: #73f696;
     margin: 10px 10px 0px;
-    width: 90px;
-    height: 25px;
-    background-color: #399dae;
+    width: 140px;
+    height: 35px;
+    transition: 0.5s ease-out;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.3rem;
+    color: #73f696;
 }
 
 .start-search:hover {
-    background-color: #0acff2;
+    color: #15151c;
+    background-color: #73f696;
 }
 
 #restart-theorem {
     position: relative;
     top: 40px;
-    border-radius: 20px;
+    border-radius: 100px;
     margin: 10px 10px 0px;
-    width: 90px;
-    height: 25px;
-    background-color: #a10e35;
+    width: 140px;
+    height: 35px;
+    transition: 0.5s ease-out;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.3rem;
+    color: #fd376c;
+    border-color: #fd376c;
+    text-align: center;
 }
 
 #restart-theorem:hover {
-    background-color: #d90f45;
+    background-color: #fd376c;
+    color: #15151c;
 }
 
 #resume-theorem {
     position: relative;
     top: 40px;
-    border-radius: 20px;
+    border-radius: 100px;
     margin: 10px 10px 0px;
-    width: 90px;
-    height: 25px;
+    width: 140px;
+    height: 35px;
+    transition: 0.5s ease-out;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.3rem;
     background-color: #256132;
+    background-color: transparent;
+    border-color: #00a624;
+    color: #00a624;
 }
 
 #resume-theorem:hover {
-    background-color: #00a624;
+    background-color: #10d63b;
+    color: #15151c;
 }
 
 #stop-theorem {
     position: relative;
     top: 40px;
-    border-radius: 20px;
+    border-radius: 100px;
     margin: 10px 10px 0px;
-    width: 90px;
-    height: 25px;
-    background-color: #a10e35;
+    width: 140px;
+    height: 35px;
+    transition: 0.5s ease-out;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.3rem;
+    color: #a10e35;
+    border-color: #a10e35;
 }
 
 #stop-theorem:hover {
+    color: #15151c;
     background-color: #d90f45;
+}
+
+@keyframes roatateWord {
+    50% {
+        transform: rotate(180deg);
+    }
 }
 
 #found-label {
     position: absolute;
-    top: 110px;
+    top: -70px;
     color: white;
+    animation: mymove 1s ease-in-out infinite alternate;
+}
+
+@keyframes mymove {
+    from {
+        transform: rotate(-10deg);
+    }
+    to {
+        transform: rotate(10deg);
+    }
 }
 
 .wrapper {
@@ -111,7 +161,9 @@ body {
     align-items: center;
 }
 
-.content-box {}
+.content-box {
+    align-items: center;
+}
 
 .monkey-text {
     width: 80%;
@@ -125,6 +177,8 @@ body {
     word-break: break-all;
     overflow-y: scroll;
     border-radius: 8px;
+    background: #101417;
+    color: #5c5e69;
 }
 
 .monkey-text::-webkit-scrollbar {
@@ -135,4 +189,32 @@ body {
 
 .monkey-text:focus {
     outline: none;
+}
+
+.text {
+    max-height: 250px;
+    overflow-y: scroll;
+    position: relative;
+    color: #5c5e69;
+    top: -252px;
+    left: 5px;
+    right: 3px;
+    letter-spacing: 1.25px;
+    width: 410px;
+    max-width: 405;
+    font-size: 10px;
+    word-break: break-all;
+    text-align: justify;
+}
+
+.text p span.correct {
+    color: #56964f;
+}
+
+.text p span.incorrect {
+    color: #ff7b5d;
+}
+
+.text::-webkit-scrollbar {
+    width: 0;
 }

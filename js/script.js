@@ -2,6 +2,8 @@ const inpField = document.querySelector(".container .input-field");
 const monkeyText = document.querySelector(".monkey-text");
 const startBtn = document.querySelector(".start-search");
 const container = document.querySelector(".container");
+const text = document.querySelector(".text p");
+const textBox = document.getElementById("text-box");
 
 const letters = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a",
     "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"
@@ -14,6 +16,22 @@ var stopped = true;
 var searchWord = "";
 
 var running = false;
+
+var characterIndex = 0;
+
+var builtWord = ""
+
+// keeps track of the letters that are correct
+var charactersCorrect = []
+
+
+var characters = []
+
+// array of Character Indexes of the characters that are correct, so if the word if incorrect it assign an incorrect class tag
+var charIndexArray = []
+
+// each time it gets a letter correct it will increment to check if the next letter is correct
+var letterStreak = 0;
 
 // initializes the theorem
 function initTheorem() {
@@ -55,24 +73,66 @@ function checkWordValid(word) {
 
 
 function nextLetter() {
-    let ranIndex = parseInt(Math.random() * letters.length - 1);
+    let ranIndex = parseInt(Math.random() * letters.length);
     return letters[ranIndex];
 }
 
 function addLetter() {
     let letter = nextLetter();
-    monkeyText.textContent += letter;
+    let spanTag = `<span>${letter}</span>`;
+
+    // adds a tag to text to add each character individually so it can add class tags such as correct/incorrect
+    text.innerHTML += spanTag;
+
+    //monkeyText.innerHTML += spanTag;
+    //monkeyText.textContent += letter;
+
+
+
     checkIfWordFound(letter);
 }
 
 function checkIfWordFound(letter) {
     allLetters += letter;
+    //characters = text.querySelectorAll("span");
+    characters.push(text.lastElementChild);
+
+    let stopAdd = false;
+    //console.log(characters[0]);
+
+
 
     // checks variable with all the letters that have been added
     // checks by picking out the latest characters the length of the search word
-    console.log(allLetters);
+    if (characters[characterIndex].innerText === searchWord.substring(letterStreak, letterStreak + 1)) {
+        characters[characterIndex].classList.add("correct");
+        letterStreak++;
+        builtWord += characters[characterIndex].innerText;
+        charIndexArray.push(characterIndex)
+    } else {
 
-    if (allLetters.substring(allLetters.length - searchWord.length) === searchWord) {
+        builtWord = ""
+
+        if (letterStreak > 0) {
+            //let chars = text.querySelectorAll("span");
+            let chars = text.getElementsByClassName("correct")
+
+            for (num of chars) {
+                if (num.classList.contains("correct")) {
+                    num.classList.remove("correct");
+                    num.classList.add("incorrect");
+                }
+            }
+        }
+        characters = []
+        characterIndex = 0
+        letterStreak = 0;
+        charIndexArray = []
+        stopAdd = true
+
+    }
+    //console.log(builtWord)
+    if (builtWord === searchWord) {
         stopped = true;
 
         // adds a label to the html container and shows Monkey found word
@@ -85,6 +145,9 @@ function checkIfWordFound(letter) {
         makeRestartButton()
 
     }
+    if (!stopAdd)
+        characterIndex++;
+    textBox.scrollTop = textBox.scrollHeight
 }
 
 
@@ -173,7 +236,8 @@ function startTheorem() {
         } else {
             return
         }
-        monkeyText.scrollTop = monkeyText.scrollHeight;
+        //monkeyText.scrollTop = monkeyText.scrollHeight;
+
         // var ta = document.getElementById('.monkey-text');
         // ta.scrollTop = ta.scrollHeight;
     }, 0)
